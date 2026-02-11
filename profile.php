@@ -9,13 +9,12 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 $message = '';
-$messageType = ''; // 'success' or 'error'
+$messageType = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] == 0) {
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
-        
-        // Use finfo for more secure MIME type checking if available, otherwise fallback
+
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $file_type = finfo_file($finfo, $_FILES['profile_pic']['tmp_name']);
         finfo_close($finfo);
@@ -45,13 +44,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Fetch current user data
 $stmt = $conn->prepare("SELECT username, email, profile_picture FROM users WHERE user_id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $user_data = $stmt->get_result()->fetch_assoc();
 
-// Handle default image if none exists
 $profile_img = !empty($user_data['profile_picture']) && file_exists('uploads/' . $user_data['profile_picture']) 
     ? 'uploads/' . htmlspecialchars($user_data['profile_picture']) 
     : 'https://ui-avatars.com/api/?name=' . urlencode($user_data['username']) . '&background=0D8ABC&color=fff';

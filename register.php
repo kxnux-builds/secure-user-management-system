@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Please fill in all fields.";
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -16,6 +16,7 @@ if (isset($_GET['delete_id']) && $_SESSION['role_id'] == 1) {
     header("Location: dashboard.php");
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,7 +94,7 @@ if (isset($_GET['delete_id']) && $_SESSION['role_id'] == 1) {
                 </div>
             </div>
 
-        <?php else: // Regular User View ?>
+        <?php else: ?>
             <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center max-w-2xl mx-auto mt-10">
                 <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
                     <?php echo strtoupper(substr($_SESSION['username'], 0, 1)); ?>
